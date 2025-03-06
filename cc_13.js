@@ -67,3 +67,25 @@ document.addEventListener("keydown", (event) => {
         highlightEmployees();
     }
 });
+
+// Task 4 - Implementing Removal of Employee Cards with Event Bubbling
+
+document.addEventListener("DOMContentLoaded", () => {
+    const employeeContainer = document.getElementById("employeeContainer");
+
+    // Event Delegation: Remove Employee
+    employeeContainer.addEventListener("click", (event) => {
+        if (event.target.classList.contains("remove-btn")) {
+            event.stopPropagation(); // Prevent bubbling to container
+            event.target.parentElement.remove(); // Remove employee card
+        }
+    });
+
+    // Event Bubbling: Log message on clicking card
+    employeeContainer.addEventListener("click", (event) => {
+        if (event.target.classList.contains("employee-card")) {
+            console.log("Employee card clicked!");
+        }
+    });
+});
+
