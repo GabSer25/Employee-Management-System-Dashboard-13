@@ -89,3 +89,59 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// Task 5 - Inline Editing of Employee Details
+
+document.addEventListener("DOMContentLoaded", () => {
+    const employeeContainer = document.getElementById("employeeContainer");
+
+    function enableEditing(card) {
+        const nameElement = card.querySelector("h3");
+        const positionElement = card.querySelector("p");
+
+        const nameInput = document.createElement("input");
+        nameInput.type = "text";
+        nameInput.value = nameElement.textContent;
+
+        const positionInput = document.createElement("input");
+        positionInput.type = "text";
+        positionInput.value = positionElement.textContent;
+
+        const saveButton = document.createElement("button");
+        saveButton.textContent = "Save";
+
+        card.innerHTML = ""; //Clear the card
+        card.appendChild(nameInput);
+        card.appendChild(positionInput);
+        card.appendChild(saveButton);
+
+        saveButton.addEventListener("click", () => {
+            nameElement.textContent = nameInput.value;
+            positionElement.textContent = positionInput.value;
+        
+    	// Reset the card content after saving
+            card.innerHTML = "";
+            card.appendChild(nameElement);
+            card.appendChild(positionElement);
+            card.appendChild(saveButton);
+ 	
+	// Restore Remove Button
+            const removeBtn = document.createElement("button");
+            removeBtn.textContent = "Remove";
+            removeBtn.classList.add("remove-btn");
+            card.appendChild(removeBtn);
+
+        // Reattach Remove functionality
+            removeBtn.addEventListener("click", (event) => {
+                event.stopPropagation();
+                card.remove();
+            });
+        });
+    }
+
+    // Double-click to edit employee details
+    employeeContainer.addEventListener("dblclick", (event) => {
+        if (event.target.closest(".employee-card")) {
+            enableEditing(event.target.closest(".employee-card"));
+        }
+    });
+});
