@@ -49,3 +49,21 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// Task 3 - Converting NodeLists to Arrays for Bulk Updates
+
+function highlightEmployees() {
+    const cards = document.querySelectorAll(".employee-card"); // Select all employee cards
+    const cardArray = Array.from(cards); // Convert NodeList to an array
+
+    cardArray.forEach(card => {
+        card.style.border = "2px solid blue"; // Add a blue border
+        card.style.backgroundColor = "#f0f8ff"; // Light blue background for visibility
+    });
+}
+
+// Example of calling the function for testing
+document.addEventListener("keydown", (event) => {
+    if (event.key === "h") {  // Press "h" key to trigger highlight
+        highlightEmployees();
+    }
+});
